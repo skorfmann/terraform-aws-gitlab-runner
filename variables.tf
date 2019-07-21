@@ -41,11 +41,6 @@ variable "runner_instance_spot_price" {
   default     = ""
 }
 
-variable "ssh_public_key" {
-  description = "Public SSH key used for the GitLab runner EC2 instance."
-  type        = "string"
-}
-
 variable "docker_machine_instance_type" {
   description = "Instance type used for the instances hosting docker-machine."
   default     = "m5a.large"

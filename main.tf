@@ -1,8 +1,3 @@
-resource "aws_key_pair" "key" {
-  key_name   = "${var.environment}-gitlab-runner"
-  public_key = "${var.ssh_public_key}"
-}
-
 locals {
   // Convert list to a string separated and prepend by a comma
   docker_machine_options_string = "${format(",%s", join(",", formatlist("%q", var.docker_machine_options)))}"
@@ -218,7 +213,6 @@ data "aws_ami" "runner" {
 
 resource "aws_launch_configuration" "gitlab_runner_instance" {
   security_groups      = ["${aws_security_group.runner.id}"]
-  key_name             = "${aws_key_pair.key.key_name}"
   image_id             = "${data.aws_ami.runner.id}"
   user_data            = "${data.template_file.user_data.rendered}"
   instance_type        = "${var.instance_type}"
